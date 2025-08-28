@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="TheMoviesProject.MVVM.View.AddFilmView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:TheMoviesProject.MVVM.ViewModel">
+    <UserControl.DataContext>
+        <vm:AddFilmViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Indtast ny film -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBox Width="150" Margin="5" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Width="100" Margin="5" Text="{Binding DurationText, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox Width="120" Margin="5" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}" />
+            <Button Content="Tilføj" Width="80" Margin="5" Command="{Binding AddFilmCommand}" />
+        </StackPanel>
+
+        <!-- Liste over film -->
+        <ListBox Grid.Row="1" ItemsSource="{Binding Films}" Margin="5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}" Width="250"/>
+                        <Button Content="Slet" Command="{Binding DataContext.DeleteFilmCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

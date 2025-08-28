@@ -1,0 +1,35 @@
+﻿<Window x:Class="TheMoviesProject.MVVM.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:TheMoviesProject.MVVM.ViewModel"
+        Title="The Movies Project" Height="600" Width="900"
+        Background="#1E1E2E">
+
+    <!-- Sæt DataContext til MainViewModel -->
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <!-- Tilføj theme filerne -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MVVM/Theme/MenuRadioButtonTheme.xaml"/>
+                <ResourceDictionary Source="/MVVM/Theme/ModernTextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel>
+
+        <!-- Navigation i toppen med én RadioButton for Filmoversigt -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#2E2E3E" Height="50">
+            <RadioButton Content="🎬 Filmoversigt"
+                         IsChecked="{Binding IsFilmViewSelected}"
+                         Style="{StaticResource MenuRadioButtonTheme}" Margin="5"/>
+        </StackPanel>
+
+        <!-- Aktivt view vises her -->
+        <ContentControl Content="{Binding CurrentView}" />
+    </DockPanel>
+</Window>
